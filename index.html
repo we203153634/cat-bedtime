@@ -36,8 +36,13 @@ button {
   border: 0;
   color: var(--ink);
 }
-
-/* 貓咪圖示通用樣式 */
+.bronze-paw-img {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  object-fit: contain;
+  display: inline-block;
+}
 .silver-paw-img {
   width: 1em;
   height: 1em;
@@ -45,15 +50,20 @@ button {
   object-fit: contain;
   display: inline-block;
 }
-/* 黑色腳印圖示樣式 */
-.black-paw-img {
+.gold-paw-img {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  object-fit: contain;
+  display: inline-block;
+}   
+.rainbow-paw-img {
   width: 1em;
   height: 1em;
   vertical-align: -0.15em;
   object-fit: contain;
   display: inline-block;
 }
-
 /* ==========================================================================
    2. 頁面整體佈局 (Layout & Container)
    ========================================================================== */
@@ -592,13 +602,13 @@ h1 {
       <section class="panel">
         <h2 class="section-title"><img src="silver-paw.png" class="silver-paw-img" alt="貓咪"> 每日集章</h2>
         <div class="ruleblock"><b><img src="silver-paw.png" class="silver-paw-img" alt="貓咪"> 01:30 前</b><br>獲得 1 隻乖寶寶章</div>
-        <div class="ruleblock"><b><img src="black-paw.png" class="black-paw-img" alt="黑色腳印">01:30～02:00</b><br>獲得 1 個進步章</div>
+        <div class="ruleblock"><b><img src="bronze-paw.png" class="bronze-paw-img" alt="黑色腳印">01:30～02:00</b><br>獲得 1 個進步章</div>
       </section>
       <section class="panel">
         <h2 class="section-title">🎁 每週累積</h2>
-        <div><img src="silver-paw.png" class="silver-paw-img" alt="貓咪"> 5 章 +1<img src="silver-paw.png" class="silver-paw-img" alt="貓咪"></div>
-        <div><img src="silver-paw.png" class="silver-paw-img" alt="貓咪"> 7 章 +2<img src="silver-paw.png" class="silver-paw-img" alt="貓咪"></div>
-        <div><img src="black-paw.png" class="black-paw-img" alt="貓咪"> 累積 2 個可兌換 <img src="silver-paw.png" class="silver-paw-img" alt="貓咪">
+        <div><img src="silver-paw.png" class="silver-paw-img" alt="貓咪"> 5 章 => 獲得<img src="gold-paw.png" class="gold-paw-img" alt="貓咪"></div>
+        <div><img src="silver-paw.png" class="silver-paw-img" alt="貓咪"> 7 章 +2<img src="rainbow-paw.png" class="rainbow-paw-img" alt="貓咪"></div>
+        <div><img src="bronze-paw.png" class="bronze-paw-img" alt="貓咪"> 累積 2 個可兌換 <img src="silver-paw.png" class="silver-paw-img" alt="貓咪">
         <div class="progressbar"><div id="weekProgress"></div></div><div class="tip" id="weekText">本週 0 / 7 隻貓貓</div>
       </section>
       <section class="panel">
