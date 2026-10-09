@@ -419,7 +419,7 @@ h1 {
   resize: vertical;
 }
 
-/* 愛心選擇器按鈕組 */
+/* 貓貓選擇器按鈕組 */
 .heartpicker {
   display: flex;
   gap: 8px;
@@ -552,15 +552,15 @@ h1 {
   </header>
   <main class="layout">
     <section class="panel">
-      <div class="panelhead"><h2>🌙 小貓咪早睡行事曆</h2><span class="pill" id="monthCount">已集 0 顆愛心</span></div>
+      <div class="panelhead"><h2>🌙 小貓咪早睡行事曆</h2><span class="pill" id="monthCount">已集 0 隻貓貓</span></div>
       <div class="weekdays"><div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div></div>
       <div class="calendar" id="calendar"></div>
       <div class="summary">
-        <div class="stat"><strong id="totalHearts">0 ❤️</strong><span>累積愛心</span></div>
+        <div class="stat"><strong id="totalHearts">0 ❤️</strong><span>累積貓貓</span></div>
         <div class="stat"><strong id="streak">0 天</strong><span>目前連續紀錄</span></div>
         <div class="stat"><strong id="noteCount">0 天</strong><span>寫下心得</span></div>
       </div>
-      <p class="tip">點選任一天的貓咪集點框，就能查看或編輯心得、貼上今天獲得的愛心。沒有達標也沒關係，明天再試一次 🐾</p>
+      <p class="tip">點選任一天的貓咪集點框，就能查看或編輯心得、貼上今天獲得的貓貓。沒有達標也沒關係，明天再試一次 🐾</p>
     </section>
     <aside class="side">
       <section class="panel">
@@ -569,13 +569,13 @@ h1 {
       </section>
       <section class="panel">
         <h2 class="section-title">💗 每日集章</h2>
-        <div class="ruleblock"><b>❤️ 01:30 前</b><br>獲得 1 顆乖寶寶章</div>
+        <div class="ruleblock"><b>🐈01:30 前</b><br>獲得 1 隻乖寶寶章</div>
         <div class="ruleblock"><b>🌱 01:30～02:00</b><br>獲得 1 個進步章</div>
       </section>
       <section class="panel">
         <h2 class="section-title">🎁 每週累積</h2>
-        <div>❤️ 5 章　+50 點</div><div>❤️ 7 章　+100 點</div><div>🌱 累積 2 個可兌換 ❤️</div>
-        <div class="progressbar"><div id="weekProgress"></div></div><div class="tip" id="weekText">本週 0 / 7 顆愛心</div>
+        <div>🐈5 章　+50 點</div><div>🐈7 章　+100 點</div><div>🌱 累積 2 個可兌換 ❤️</div>
+        <div class="progressbar"><div id="weekProgress"></div></div><div class="tip" id="weekText">本週 0 / 7 隻貓貓</div>
       </section>
       <section class="panel">
         <h2 class="section-title">✨ 連續累積</h2>
@@ -591,7 +591,7 @@ h1 {
  <section class="modal" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
   <div class="modalhead"><h2 id="dialogTitle">🐱 今日紀錄</h2><button class="close" id="close" aria-label="關閉">×</button></div>
   <div class="field"><label for="dateInput">日期</label><input id="dateInput" type="date"></div>
-  <div class="field"><label>今天獲得的愛心</label><div class="heartpicker" id="heartPicker"></div><div class="savednote">點選愛心數量；選 0 顆代表今天先不集點。</div></div>
+  <div class="field"><label>今天獲得的貓貓</label><div class="heartpicker" id="heartPicker"></div><div class="savednote">點選貓貓數量；選 0 隻代表今天先不集點。</div></div>
   <div class="field"><label for="feeling">今天的感想／心得</label><textarea id="feeling" placeholder="今天幾點關燈？心情如何？有什麼值得稱讚自己的地方……"></textarea></div>
   <div class="field"><label for="extra">今天的小記號（選填）</label><input id="extra" placeholder="例如：🌱 有比昨天早躺下"></div>
   <div class="modalactions"><button class="secondary" id="clearDay">清除此日紀錄</button><button class="secondary" id="cancel">取消</button><button class="primary" id="save">儲存紀錄 💗</button></div>
@@ -616,7 +616,7 @@ function render(){
  for(let d=1;d<=last.getDate();d++){
   const k=`${y}-${pad(m+1)}-${pad(d)}`,r=records[k]||{},hearts=Number(r.hearts)||0;
   const hasNote=(r.feeling||r.extra||'').trim().length>0;
-  html+=`<button class="day ${k===todayKey?'today ':''}${hasNote?'has-note':''}" data-date="${k}" aria-label="${k}，${hearts} 顆愛心">
+  html+=`<button class="day ${k===todayKey?'today ':''}${hasNote?'has-note':''}" data-date="${k}" aria-label="${k}，${hearts} 隻貓貓">
    <span class="num">${d}</span><span class="heart">${hearts?'❤️'.repeat(Math.min(hearts,3))+(hearts>3?'＋'+(hearts-3):''):' '}</span>
    <span class="mini">${r.extra?escapeHtml(r.extra.slice(0,10)):hasNote?'✎ 有心得':hearts?'已集點':'點我記錄'}</span></button>`;
  }
@@ -624,7 +624,7 @@ function render(){
  document.querySelectorAll('.day[data-date]').forEach(b=>b.addEventListener('click',()=>openModal(b.dataset.date)));
  const monthly=Object.entries(records).filter(([k])=>k.startsWith(`${y}-${pad(m+1)}-`));
  const monthHearts=monthly.reduce((s,[,r])=>s+(Number(r.hearts)||0),0);
- $('monthCount').textContent=`已集 ${monthHearts} 顆愛心`;
+ $('monthCount').textContent=`已集 ${monthHearts} 隻貓貓`;
  $('totalHearts').textContent=`${Object.values(records).reduce((s,r)=>s+(Number(r.hearts)||0),0)} ❤️`;
  $('noteCount').textContent=`${Object.values(records).filter(r=>(r.feeling||'').trim()).length} 天`;
  let streak=0,dt=new Date();while(records[keyOf(dt)]&&Number(records[keyOf(dt)].hearts)>0){streak++;dt.setDate(dt.getDate()-1)}
@@ -635,7 +635,7 @@ function render(){
 }
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function openModal(k){selectedDate=k;const r=records[k]||{};selectedHearts=Number(r.hearts)||0;$('dateInput').value=k;$('feeling').value=r.feeling||'';$('extra').value=r.extra||'';$('dialogTitle').textContent=`🐱 ${k} 的今日紀錄`;drawHearts();$('backdrop').classList.add('show')}
-function drawHearts(){ $('heartPicker').innerHTML='';for(let n=0;n<=5;n++){const b=document.createElement('button');b.className='heartopt'+(n===selectedHearts?' active':'');b.type='button';b.title=`${n} 顆愛心`;b.setAttribute('aria-label',`${n} 顆愛心`);const icon=document.createElement('span');icon.className='heart-icon';icon.textContent=n===0?'♡':'❤️';const number=document.createElement('span');number.className='heart-number';number.textContent=String(n);b.append(icon,number);b.onclick=()=>{selectedHearts=n;drawHearts()};$('heartPicker').appendChild(b)}}
+function drawHearts(){ $('heartPicker').innerHTML='';for(let n=0;n<=5;n++){const b=document.createElement('button');b.className='heartopt'+(n===selectedHearts?' active':'');b.type='button';b.title=`${n} 隻貓貓`;b.setAttribute('aria-label',`${n} 隻貓貓`);const icon=document.createElement('span');icon.className='heart-icon';icon.textContent=n===0?'♡':'❤️';const number=document.createElement('span');number.className='heart-number';number.textContent=String(n);b.append(icon,number);b.onclick=()=>{selectedHearts=n;drawHearts()};$('heartPicker').appendChild(b)}}
 function closeModal(){$('backdrop').classList.remove('show')}
 $('prev').onclick=()=>{viewDate.setMonth(viewDate.getMonth()-1);render()};
 $('next').onclick=()=>{viewDate.setMonth(viewDate.getMonth()+1);render()};
@@ -643,7 +643,7 @@ $('close').onclick=closeModal;$('cancel').onclick=closeModal;
 $('backdrop').addEventListener('click',e=>{if(e.target===$('backdrop'))closeModal()});
 $('dateInput').addEventListener('change',e=>{if(e.target.value){const k=e.target.value;const r=records[k]||{};selectedDate=k;selectedHearts=Number(r.hearts)||0;$('dialogTitle').textContent=`🐱 ${k} 的今日紀錄`;$('feeling').value=r.feeling||'';$('extra').value=r.extra||'';drawHearts()}});
 $('save').onclick=()=>{const k=$('dateInput').value;if(!k){alert('請先選擇日期');return}const r={hearts:selectedHearts,feeling:$('feeling').value.trim(),extra:$('extra').value.trim()};if(!r.hearts&&!r.feeling&&!r.extra)delete records[k];else records[k]=r;persist();viewDate=parseKey(k);viewDate.setDate(1);render();closeModal()};
-$('clearDay').onclick=()=>{if(confirm('確定要清除此日的愛心與心得嗎？')){delete records[$('dateInput').value];persist();render();closeModal()}};
+$('clearDay').onclick=()=>{if(confirm('確定要清除此日的貓貓與心得嗎？')){delete records[$('dateInput').value];persist();render();closeModal()}};
 $('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(records,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='小貓咪早睡計畫紀錄.json';a.click();URL.revokeObjectURL(url)};
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 render();
