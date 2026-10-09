@@ -672,7 +672,7 @@ function openModal(k){
   selectedHearts=Number(r.hearts)||0;
   $('dateInput').value=k;
   $('feeling').value=r.feeling||'';
-  $('extra').value=r.extra\vert{}\vert{}'';$('dialogTitle').innerHTML=`${catImgHtml} ${k} 的今日紀錄`;
+  $('extra').value=r.extra || '';$('dialogTitle').innerHTML=`${catImgHtml} ${k} 的今日紀錄`;
   drawHearts();
   $('backdrop').classList.add('show');
 }
