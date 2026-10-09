@@ -700,7 +700,25 @@ function drawHearts(){
 function closeModal(){$('backdrop').classList.remove('show')}
 $('prev').onclick=()=>{viewDate.setMonth(viewDate.getMonth()-1);render()};$('next').onclick=()=>{viewDate.setMonth(viewDate.getMonth()+1);render()};
 $('close').onclick=closeModal;$('cancel').onclick=closeModal;
-$('backdrop').addEventListener('click',e=>{if(e.target===$('backdrop'))closeModal()});$('dateInput').addEventListener('change',e=>{if(e.target.value){const k=e.target.value;const r=records[k]||{};selectedDate=k;selectedHearts=Number(r.hearts)||0;$('dialogTitle').innerHTML=`${catImgHtml} ${k} 的今日紀錄`;$('feeling').value=r.feeling\vert{}\vert{}'';$('extra').value=r.extra||'';drawHearts()}});
+$('backdrop').addEventListener('click', e => {
+  if (e.target === $('backdrop')) closeModal();
+});
+
+$('dateInput').addEventListener('change', e => {
+  if (e.target.value) {
+    const k = e.target.value;
+    const r = records[k] || {};
+
+    selectedDate = k;
+    selectedHearts = Number(r.hearts) || 0;
+
+    $('dialogTitle').innerHTML = `${catImgHtml} ${k} 的今日紀錄`;
+    $('feeling').value = r.feeling || '';
+    $('extra').value = r.extra || '';
+
+    drawHearts();
+  }
+});
 $('save').onclick=()=>{const k=$('dateInput').value;if(!k){alert('請先選擇日期');return}const r={hearts:selectedHearts,feeling:$('feeling').value.trim(),extra:$('extra').value.trim()};if(!r.hearts&&!r.feeling&&!r.extra)delete records[k];else records[k]=r;persist();viewDate=parseKey(k);viewDate.setDate(1);render();closeModal()};$('clearDay').onclick=()=>{if(confirm('確定要清除此日的貓貓與心得嗎？')){delete records[$('dateInput').value];persist();render();closeModal()}};$('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(records,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='小貓咪早睡計畫紀錄.json';a.click();URL.revokeObjectURL(url)};
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 render();
