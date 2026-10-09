@@ -164,50 +164,24 @@ h1 {
   padding: 5px 0;
 }
 
-/* 貓頭形狀的日期按鈕 */
 .day {
   position: relative;
-  min-height: 91px;
-  border: 2px solid #c5a48a;
-  border-radius: 19px 19px 23px 23px;
-  background: #fffaf5;
-  padding: 7px 6px 5px;
+  min-height: 90px;
+  border: none; /* 移除邊框 */
+  background: url('head.png') no-repeat center center;
+  background-size: contain; /* 讓圖片完整顯示 */
+  padding: 20px 10px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  transition: 0.16s;
-  overflow: hidden;
+  transition: .16s;
 }
 
-/* 左貓耳 */
-.day:before {
-  content: "";
-  position: absolute;
-  top: -3px;
-  left: 8px;
-  width: 17px;
-  height: 17px;
-  border: 2px solid #c5a48a;
-  background: #fffaf5;
-  border-bottom: 0;
-  transform: rotate(-25deg);
-  border-radius: 7px 9px 0 0;
-}
-
-/* 右貓耳 */
+/* 移除原有的 CSS 耳朵 */
+.day:before,
 .day:after {
-  content: "";
-  position: absolute;
-  top: -3px;
-  right: 8px;
-  width: 17px;
-  height: 17px;
-  border: 2px solid #c5a48a;
-  background: #fffaf5;
-  border-bottom: 0;
-  transform: rotate(25deg);
-  border-radius: 99px 7px 0 0;
+  display: none;
 }
 
 /* 日期滑鼠懸停效果 */
