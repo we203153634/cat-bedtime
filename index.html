@@ -223,8 +223,17 @@ h1 {
   outline-offset: 1px;
 }
 
+/* 修正後：保留 head.png 背景圖 */
+.day:hover {
+  transform: translateY(-2px);
+  filter: brightness(0.96); /* 滑鼠懸停時稍微變暗一點，不破壞背景圖 */
+}
+
 .day.has-note {
-  background: #fff3ee;
+  /* 移除原本的 background: #fff3ee; */
+  filter: sepia(0.15) hue-rotate(-10deg); /* 用微調色調代替蓋色，或是只靠文字/邊框識別 */
+  outline: 2px dashed #e94b59; /* 有心得時加上可愛的粉紅虛線框 */
+  outline-offset: -3px;
 }
 
 .day.other {
