@@ -115,17 +115,17 @@ img.paw{width:1.5em;height:1.5em;vertical-align:-.15em;object-fit:contain;displa
 <header class="hero">
   <div class="brand"><img src="IMG_4993.jpg" alt="小貓咪早睡計畫" class="header-banner"></div>
   <div class="hero-right">
-    <div class="moneybox">🐱 當前累積貓貓金：<strong id="moneyTotal">0</strong> 元</div>
+    <div class="moneybox">💰 當前累積貓貓金：<strong id="moneyTotal">0</strong> 元</div>
     <div class="monthnav"><button class="navbtn" id="prev" aria-label="上一個月">‹</button><div class="monthlabel" id="monthLabel"></div><button class="navbtn" id="next" aria-label="下一個月">›</button></div>
   </div>
 </header>
 <main class="layout">
 <section class="panel">
-  <div class="panelhead"><h2>🌙 小貓咪早睡行事曆</h2><span class="pill" id="monthCount">本月 0 隻貓貓</span></div>
+  <div class="panelhead"><h2>🌙 小貓咪早睡行事曆</h2><span class="pill" id="monthCount">本月 0 個貓爪抓</span></div>
   <div class="weekdays"><div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div></div>
   <div class="calendar" id="calendar"></div>
   <div class="summary">
-    <div class="stat"><strong id="totalHearts">0 <img src="pink-paw.png" class="paw" alt="粉色貓掌"></strong><span>累積貓貓章值</span></div>
+    <div class="stat"><strong id="totalHearts">0 <img src="pink-paw.png" class="paw" alt="粉色貓掌"></strong><span>累積貓爪抓</span></div>
     <div class="stat"><strong id="streak">0 天</strong><span>目前連續紀錄</span></div>
     <div class="stat"><strong id="noteCount">0 天</strong><span>寫下心得</span></div>
   </div>
@@ -137,10 +137,10 @@ img.paw{width:1.5em;height:1.5em;vertical-align:-.15em;object-fit:contain;displa
   <ul class="rules"><li>01:30 前關燈躺好</li><li>不要求立刻睡著</li><li>記下今天的心情與小小進步</li></ul>
 </section>
 <section class="panel">
-  <h2 class="section-title"><img src="silver-paw.png" class="paw" alt=""> 每日集章</h2>
-  <div class="ruleblock"><b><img src="silver-paw.png" class="paw" alt=""> 01:30 前</b><br>獲得 1 個銀色貓掌章</div>
-  <div class="ruleblock"><b><img src="bronze-paw.png" class="paw" alt=""> 01:30～02:00</b><br>獲得 1 個銅色進步章</div>
-  <p class="tip">章值：銅 0.5、銀 1、金 2、彩 3。每一天可選一種。</p>
+  <h2 class="section-title"><img src="silver-paw.png" class="paw" alt=""> 每日集爪</h2>
+  <div class="ruleblock"><b><img src="silver-paw.png" class="paw" alt=""> 01:30 前</b><br>獲得 1 個銀色貓爪抓</div>
+  <div class="ruleblock"><b><img src="bronze-paw.png" class="paw" alt=""> 01:30～02:00</b><br>獲得 1 個銅色貓爪抓</div>
+  <p class="tip">爪抓：銅 0.5、銀 1、金 2、彩 3。每一天可選一種。</p>
 </section>
 <section class="panel">
   <h2 class="section-title"><img src="gold-paw.png" class="paw" alt="金色貓掌"> 每週累積</h2>
@@ -169,7 +169,7 @@ img.paw{width:1.5em;height:1.5em;vertical-align:-.15em;object-fit:contain;displa
     <div class="tip" id="streakProgressLabel">距離下一個連續獎勵還有 14 天</div>
     <div class="progressbar"><div class="fill" id="streakProgress"></div><span class="marker" style="left:100%"></span><span class="marker-label" style="left:100%" id="nextMilestoneLabel">14 天</span></div>
   </div>
-  <p class="tip">連續 7 天獲得 1 個金爪；14 天共 2 個、21 天共 3 個、28 天共 4 個；之後每多連續 7 天再多 1 個。以歷史最高連續天數計算獎勵。</p>
+  <p class="tip">連續 7 天獲得 1 個金爪抓；14 天共 2 個、21 天共 3 個、28 天共 4 個；之後每多連續 7 天再多 1 個。以歷史最高連續天數計算獎勵。</p>
   <button class="danger" id="clearAllBtn">清除當前所有紀錄</button>
 </section>
 </aside>
@@ -250,7 +250,7 @@ function renderWeek(){
  for(let i=0;i<7;i++){const d=new Date(start);d.setDate(start.getDate()+i);if(dayHasPoint(keyOf(d)))count++}
  $('weekProgress').style.width=`${count/7*100}%`;
  $('weekText').textContent=`本週 ${count} / 7 天有集點`;
- $('weekRewardText').textContent=count>=7?'🎉 本週金爪與彩爪都已解鎖！':count>=5?'✨ 已解鎖金爪，再集點就能挑戰彩爪！':'再努力集點，達到 5 天可獲得金爪。';
+ $('weekRewardText').textContent=count>=7?'🎉 本週金爪抓與彩爪抓都已解鎖！':count>=5?'✨ 已解鎖金爪抓，再集點就能挑戰彩爪抓！':'再努力集點，達到 5 天可獲得金爪抓。';
 }
 function renderStreak(){
  const best=longestStreak(),reward=goldRewardForStreak(best);
