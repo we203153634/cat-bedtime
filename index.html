@@ -144,10 +144,10 @@ img.paw{width:1.5em;height:1.5em;vertical-align:-.15em;object-fit:contain;displa
 </section>
 <section class="panel">
   <h2 class="section-title"><img src="gold-paw.png" class="paw" alt="金色貓掌"> 每週累積</h2>
-  <div><img src="silver-paw.png" class="paw" alt=""> 每週有集點天數達到 5 天，獲得 <img src="gold-paw.png" class="paw" alt="金色貓掌"></div>
-  <div style="margin-top:6px"><img src="silver-paw.png" class="paw" alt=""> 每週有集點天數達到 7 天，獲得 <img src="rainbow-paw.png" class="paw" alt="彩色貓掌"></div>
+  <div><img src="silver-paw.png" class="paw" alt=""> 每週有集爪天數達到 5 天，獲得 <img src="gold-paw.png" class="paw" alt="金色貓掌"></div>
+  <div style="margin-top:6px"><img src="silver-paw.png" class="paw" alt=""> 每週有集爪天數達到 7 天，獲得 <img src="rainbow-paw.png" class="paw" alt="彩色貓掌"></div>
   <div class="progressbar" id="weekBar"><div class="fill" id="weekProgress"></div><span class="marker" style="left:71.4286%"></span><span class="marker-label" style="left:71.4286%">5/7</span><span class="marker-reward" style="left:71.4286%"><img src="gold-paw.png" alt="金爪"></span><span class="marker" style="left:100%"></span><span class="marker-label" style="left:100%">7/7</span><span class="marker-reward" style="left:100%"><img src="rainbow-paw.png" alt="彩爪"></span></div>
-  <div class="tip" id="weekText">本週 0 / 7 天有集點</div>
+  <div class="tip" id="weekText">本週 0 / 7 天有集爪</div>
   <div class="tip" id="weekRewardText"></div>
 </section>
 <section class="panel">
@@ -237,7 +237,7 @@ function render(){
  $('calendar').innerHTML=html;
  document.querySelectorAll('.day[data-date]').forEach(b=>b.addEventListener('click',()=>openModal(b.dataset.date)));
  const monthly=Object.entries(records).filter(([k])=>k.startsWith(`${y}-${pad(m+1)}-`));
- $('monthCount').textContent=`本月 ${monthly.reduce((s,[,r])=>s+(Number(r.hearts)>0?1:0),0)} 天有集點`;
+ $('monthCount').textContent=`本月 ${monthly.reduce((s,[,r])=>s+(Number(r.hearts)>0?1:0),0)} 天有集爪`;
  const total=totalPawValue();
  $('totalHearts').innerHTML=`${Number.isInteger(total)?total:total.toFixed(1)} <img src="pink-paw.png" class="paw" alt="粉色貓掌">`;
  $('noteCount').textContent=`${Object.values(records).filter(r=>(r.feeling||'').trim()).length} 天`;
