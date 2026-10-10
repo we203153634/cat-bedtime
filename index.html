@@ -44,8 +44,8 @@ button {
   display: inline-block;
 }
 .silver-paw-img {
-  width: 1em;
-  height: 1em;
+  width: 1.5em;
+  height: 1.5em;
   vertical-align: -0.15em;
   object-fit: contain;
   display: inline-block;
@@ -466,15 +466,15 @@ h1 {
 }
 
 .heartopt {
-  flex: 0 0 43px;
-  width: 43px;
-  height: 46px;
-  padding: 3px 0;
+  flex: 0 0 62px;
+  width: 62px;
+  height: 58px;
+  padding: 4px 2px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1px;
+  gap: 3px;
   border-radius: 13px;
   background: #fff0ec;
   border: 1px solid #f0d1c8;
@@ -483,20 +483,22 @@ h1 {
 
 .heartopt .heart-icon {
   font-size: 20px;
-  line-height: 20px;
+  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.heartopt .heart-icon .silver-paw-img {
-  width: 20px;
-  height: 20px;
+.heartopt .heart-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  display: block;
 }
 
 .heartopt .heart-number {
   font-size: 10px;
-  line-height: 11px;
+  line-height: 12px;
   color: #8d6655;
   font-weight: 800;
 }
@@ -614,7 +616,7 @@ h1 {
       <section class="panel">
         <h2 class="section-title">🎁 每週累積</h2>
         <div><img src="silver-paw.png" class="silver-paw-img" alt="貓咪"> 5 章 => 獲得<img src="gold-paw.png" class="gold-paw-img" alt="貓咪"></div>
-        <div><img src="silver-paw.png" class="silver-paw-img" alt="貓咪"> 7 章 +2<img src="rainbow-paw.png" class="rainbow-paw-img" alt="貓咪"></div>
+        <div><img src="silver-paw.png" class="silver-paw-img" alt="貓咪"> 7 章 => 獲得<img src="rainbow-paw.png" class="rainbow-paw-img" alt="貓咪"></div>
         <div><img src="bronze-paw.png" class="bronze-paw-img" alt="貓咪"> 累積 2 個可兌換 <img src="silver-paw.png" class="silver-paw-img" alt="貓咪">
         <div class="progressbar"><div id="weekProgress"></div></div><div class="tip" id="weekText">本週 0 / 7 隻貓貓</div>
       </section>
@@ -634,7 +636,7 @@ h1 {
  <section class="modal" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
   <div class="modalhead"><h2 id="dialogTitle"><img src="silver-paw.png" class="silver-paw-img" alt="貓咪"> 今日紀錄</h2><button class="close" id="close" aria-label="關閉">×</button></div>
   <div class="field"><label for="dateInput">日期</label><input id="dateInput" type="date"></div>
-  <div class="field"><label>今天獲得的貓貓</label><div class="heartpicker" id="heartPicker"></div><div class="savednote">點選貓貓數量；選 0 隻代表今天先不集點。</div></div>
+  <div class="field"><label>今天獲得的貓貓</label><div class="heartpicker" id="heartPicker"></div><div class="savednote">選擇今天獲得的貓掌種類；每一天可選一種。</div></div>
   <div class="field"><label for="feeling">今天的感想／心得</label><textarea id="feeling" placeholder="今天幾點關燈？心情如何？有什麼值得稱讚自己的地方……"></textarea></div>
   <div class="field"><label for="extra">今天的小記號（選填）</label><input id="extra" placeholder="例如：有比昨天早躺下"></div>
   <div class="modalactions"><button class="secondary" id="clearDay">清除此日紀錄</button><button class="secondary" id="cancel">取消</button><button class="primary" id="save">儲存紀錄 💗</button></div>
@@ -650,6 +652,20 @@ const keyOf=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 const parseKey=k=>{const [y,m,d]=k.split('-').map(Number);return new Date(y,m-1,d)};
 const todayKey=keyOf(new Date());
 const catImgHtml='<img src="silver-paw.png" class="silver-paw-img" alt="貓咪">';
+const pawTypes=[
+  {id:'bronze',name:'銅',file:'bronze-paw.png'},
+  {id:'silver',name:'銀',file:'silver-paw.png'},
+  {id:'gold',name:'金',file:'gold-paw.png'},
+  {id:'rainbow',name:'彩',file:'rainbow-paw.png'}
+];
+let selectedPaw='silver';
+function pawImgHtml(type){
+  const paw=pawTypes.find(p=>p.id===type)||pawTypes[1];
+  const className=paw.id==='bronze'?'bronze-paw-img':
+    paw.id==='silver'?'silver-paw-img':
+    paw.id==='gold'?'gold-paw-img':'rainbow-paw-img';
+  return `<img src="${paw.file}" class="${className}" alt="${paw.name}色貓掌">`;
+}
 
 function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(records))}catch(e){alert('瀏覽器無法儲存，請匯出備份。')}}
 
@@ -665,8 +681,12 @@ function render(){
   
   let heartsHtml=' ';
   if(hearts>0){
-    const showCount=Math.min(hearts,3);
-    heartsHtml=catImgHtml.repeat(showCount)+(hearts>3?`＋${hearts-3}`:'');
+    if(r.paw){
+      heartsHtml=pawImgHtml(r.paw);
+    }else{
+      const showCount=Math.min(hearts,3);
+      heartsHtml=catImgHtml.repeat(showCount)+(hearts>3?`＋${hearts-3}`:'');
+    }
   }
 
   html+=`<button class="day ${k===todayKey?'today ':''}${hasNote?'has-note':''}" data-date="${k}" aria-label="${k}，${hearts} 隻貓貓">
@@ -693,6 +713,7 @@ function openModal(k){
   selectedDate=k;
   const r=records[k]||{};
   selectedHearts=Number(r.hearts)||0;
+  selectedPaw=r.paw||'silver';
   $('dateInput').value=k;
   $('feeling').value=r.feeling||'';
   $('extra').value=r.extra || '';$('dialogTitle').innerHTML=`${catImgHtml} ${k} 的今日紀錄`;
@@ -700,24 +721,28 @@ function openModal(k){
   $('backdrop').classList.add('show');
 }
 
-function drawHearts(){ 
+function drawHearts(){
   $('heartPicker').innerHTML='';
-  for(let n=0;n<=3;n++){
+  pawTypes.forEach(paw=>{
     const b=document.createElement('button');
-    b.className='heartopt'+(n===selectedHearts?' active':'');
+    b.className='heartopt'+(paw.id===selectedPaw?' active':'');
     b.type='button';
-    b.title=`${n} 隻貓貓`;
-    b.setAttribute('aria-label',`${n} 隻貓貓`);
+    b.title=`${paw.name}色貓掌`;
+    b.setAttribute('aria-label',`${paw.name}色貓掌`);
     const icon=document.createElement('span');
     icon.className='heart-icon';
-    icon.innerHTML=n===0?'—':catImgHtml;
+    icon.innerHTML=pawImgHtml(paw.id);
     const number=document.createElement('span');
     number.className='heart-number';
-    number.textContent=String(n);
+    number.textContent=`${paw.name}色`;
     b.append(icon,number);
-    b.onclick=()=>{selectedHearts=n;drawHearts()};
+    b.onclick=()=>{
+      selectedPaw=paw.id;
+      selectedHearts=1;
+      drawHearts();
+    };
     $('heartPicker').appendChild(b);
-  }
+  });
 }
 
 function closeModal(){$('backdrop').classList.remove('show')}
@@ -734,6 +759,7 @@ $('dateInput').addEventListener('change', e => {
 
     selectedDate = k;
     selectedHearts = Number(r.hearts) || 0;
+    selectedPaw = r.paw || 'silver';
 
     $('dialogTitle').innerHTML = `${catImgHtml} ${k} 的今日紀錄`;
     $('feeling').value = r.feeling || '';
@@ -742,7 +768,7 @@ $('dateInput').addEventListener('change', e => {
     drawHearts();
   }
 });
-$('save').onclick=()=>{const k=$('dateInput').value;if(!k){alert('請先選擇日期');return}const r={hearts:selectedHearts,feeling:$('feeling').value.trim(),extra:$('extra').value.trim()};if(!r.hearts&&!r.feeling&&!r.extra)delete records[k];else records[k]=r;persist();viewDate=parseKey(k);viewDate.setDate(1);render();closeModal()};$('clearDay').onclick=()=>{if(confirm('確定要清除此日的貓貓與心得嗎？')){delete records[$('dateInput').value];persist();render();closeModal()}};$('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(records,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='小貓咪早睡計畫紀錄.json';a.click();URL.revokeObjectURL(url)};
+$('save').onclick=()=>{const k=$('dateInput').value;if(!k){alert('請先選擇日期');return}const feeling=$('feeling').value.trim(),extra=$('extra').value.trim();const r={hearts:1,paw:selectedPaw,feeling,extra};records[k]=r;persist();viewDate=parseKey(k);viewDate.setDate(1);render();closeModal()};$('clearDay').onclick=()=>{if(confirm('確定要清除此日的貓貓與心得嗎？')){delete records[$('dateInput').value];persist();render();closeModal()}};$('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(records,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='小貓咪早睡計畫紀錄.json';a.click();URL.revokeObjectURL(url)};
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 render();
 </script>
